@@ -75,43 +75,6 @@ if(n==4){
   dd$B[dd$ID %in% B[[1]]]<-TRUE
   write.table(dd, file=paste0(output,".merge.xls"), row.names=FALSE, sep="\t", quote=FALSE)
  
-  # pdf(paste0(output,".eulerEllipse.pdf"),width=8,height=6)
-  # plot(euler(dd[,2:3],shape="ellipse"),
-  #      fills = list(#fill = c("#fbb4ae", "#b3cde3", "#ccebc5"), alpha = 0.6),
-  #        fill = mycols[1:2], alpha = 0.5),
-  #      labels = list(col = "white", font = 12), 
-  #      edges = list(lex=3),
-  #      quantities = TRUE
-  # )
-  # dev.off()
-  # tiff(paste0(output,".eulerEllipse.tif"),width=8,height=6,res=300,units="in")
-  # plot(euler(dd[,2:3],shape="ellipse"),
-  #      fills = list(#fill = c("#fbb4ae", "#b3cde3", "#ccebc5"), alpha = 0.6),
-  #        fill = mycols[1:2], alpha = 0.5),
-  #      labels = list(col = "white", font = 12), 
-  #      edges = list(lex=3),
-  #      quantities = TRUE
-  # )
-  # dev.off()
-  # 
-  # pdf(paste0(output,".euler.pdf"),width=8,height=6)
-  # plot(euler(dd[,2:3]),
-  #      fills = list(#fill = c("#fbb4ae", "#b3cde3", "#ccebc5"), alpha = 0.6),
-  #        fill = mycols[1:2], alpha = 0.5),
-  #      labels = list(col = "white", font = 12), 
-  #      edges = list(lex=3),
-  #      quantities = TRUE
-  # )
-  # dev.off()
-  # tiff(paste0(output,".euler.tif"),width=8,height=6,res=300,units="in")
-  # plot(euler(dd[,2:3]),
-  #      fills = list(#fill = c("#fbb4ae", "#b3cde3", "#ccebc5"), alpha = 0.6),
-  #        fill = mycols[1:2], alpha = 0.5),
-  #      labels = list(col = "white", font = 12), 
-  #      edges = list(lex=3),
-  #      quantities = TRUE
-  # )
-  # dev.off()
 }else if(n==5){
   input1<-as.character(ARGV[1])
   input2<-as.character(ARGV[2])
@@ -126,7 +89,6 @@ if(n==4){
     cn<-"CshCIRBP.vs.CU6;DU6.vs.CU6;DshCIRBP.vs.DU6"
   }
   categorynames<-stringr::str_split(cn,';')[[1]]
-  #categorynames<-c("A","B","C")
   A<-as.data.frame(read.delim(input1,quote="",stringsAsFactors = FALSE))
   B<-as.data.frame(read.delim(input2,quote="",stringsAsFactors = FALSE))
   C<-as.data.frame(read.delim(input3,quote="",stringsAsFactors = FALSE))
@@ -167,14 +129,7 @@ if(n==4){
     cat.dist = c(0.08, 0.08, 0.08),
     margin = 0.1
   )
-  #dev.off()
-  # AN<-NROW(A)
-  # BN<-NROW(B)
-  # CN<-NROW(C)
-  # AB<-length(intersect(A[[1]],B[[1]]))
-  # AC<-length(intersect(A[[1]],C[[1]]))
-  # BC<-length(intersect(B[[1]],C[[1]]))
-  # ABC<-length(intersect(AB,C[[1]]))
+
   UnionID<-union(A[[1]],B[[1]])
   UnionID<-union(UnionID,C[[1]])
   dd<-data.frame(ID=UnionID)
@@ -185,9 +140,6 @@ if(n==4){
   dd[,categorynames[3]]<-FALSE
   dd[dd$ID %in% C[[1]], categorynames[3]]<-TRUE
   write.table(dd, file=paste0(output,".merge.xls"), row.names=FALSE, sep="\t", quote=FALSE)
-  #pdf(paste0(output,".eulerEllipse.pdf"),width=8,height=6)
-
-  #png(paste0(output,".eulerEllipse.png"),width=12,height=12, res=300,units="in")
   
   p<-plot(euler(dd[,2:4],shape="ellipse"),
        fills = list(#fill = c("#fbb4ae", "#b3cde3", "#ccebc5"), alpha = 0.6),
@@ -199,7 +151,7 @@ if(n==4){
   ggsave(paste0(output,".eulerEllipse.png"),plot=p,width=6,height=6,dpi=300,units="in")
   ggsave(paste0(output,".eulerEllipse.pdf"),plot=p,width=6,height=6,dpi=300,units="in")
   
-  # pdf(paste0(output,".euler.pdf"),width=8,height=6)
+  
   p2<-plot(euler(dd[,2:4]),
        fills = list(#fill = c("#fbb4ae", "#b3cde3", "#ccebc5"), alpha = 0.6),
          fill = mycols[1:3], alpha = 0.5),
@@ -209,18 +161,7 @@ if(n==4){
   )
   ggsave(paste0(output,".euler.png"),plot=p2,width=6,height=6,dpi=300,units="in")
   ggsave(paste0(output,".euler.pdf"),plot=p2,width=6,height=6,dpi=300,units="in")
-  # dev.off()
-  # tiff(paste0(output,".euler.tif"),width=8,height=6,res=300,units="in")
-  # cat("do eulerEllipse4\n")
-  # plot(euler(dd[,2:4]),
-  #      fills = list(#fill = c("#fbb4ae", "#b3cde3", "#ccebc5"), alpha = 0.6),
-  #        fill = mycols[1:3], alpha = 0.5),
-  #      labels = list(col = "white", font = 6), 
-  #      edges = list(lex=5),
-  #      quantities = TRUE
-  # )
-  # dev.off()
-  
+
 }else if(n==6){
   input1<-as.character(ARGV[1])
   input2<-as.character(ARGV[2])
@@ -237,8 +178,6 @@ if(n==4){
     output<-'Venn.4Set'
   }
   categorynames<-stringr::str_split(cn,';')[[1]]
-  
-  #categorynames<-c("A","B","C","D")
   
   S1<-as.data.frame(read.table(input1,header=TRUE,sep="\t",quote="",stringsAsFactors=FALSE))
   S2<-as.data.frame(read.table(input2,header=TRUE,sep="\t",quote="",stringsAsFactors=FALSE))

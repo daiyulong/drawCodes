@@ -1,1 +1,1 @@
-# Some drawing codes
+# 基于R语言编写的一些常用的画图脚本
